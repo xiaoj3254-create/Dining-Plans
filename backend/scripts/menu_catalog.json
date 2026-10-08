@@ -1,0 +1,759 @@
+{
+  "_readme": "餐馆与菜品模拟数据单一来源：被 backend/scripts/seed.py（落库）与 frontend/scripts/gen_food_images.py（生成图片）共同读取。dish_pools 按菜系给出菜品池，restaurants 通过 dish_names 引用池内菜品（同名菜跨店共用一张图，控制包体积）。\n# 2026-10-08：restaurants 增加 latitude/longitude（商圈中心 + 确定性微偏移），用于广场「距离」标签与距离排序；坐标为近似值，仅供演示。",
+  "dish_pools": {
+    "火锅": [
+      {
+        "name": "牛油锅底",
+        "price": 38,
+        "category": "锅底",
+        "tags": "招牌",
+        "file": "dish_huoguo_guodi.png"
+      },
+      {
+        "name": "毛肚",
+        "price": 48,
+        "category": "荤菜",
+        "tags": "招牌,必点",
+        "file": "dish_huoguo_maodu.png"
+      },
+      {
+        "name": "鹅肠",
+        "price": 42,
+        "category": "荤菜",
+        "tags": "",
+        "file": "dish_huoguo_echang.png"
+      },
+      {
+        "name": "虾滑",
+        "price": 36,
+        "category": "荤菜",
+        "tags": "必点",
+        "file": "dish_huoguo_xiahua.png"
+      },
+      {
+        "name": "肥牛卷",
+        "price": 45,
+        "category": "荤菜",
+        "tags": "",
+        "file": "dish_huoguo_feiniu.png"
+      },
+      {
+        "name": "黄喉",
+        "price": 40,
+        "category": "荤菜",
+        "tags": "",
+        "file": "dish_huoguo_huanghou.png"
+      },
+      {
+        "name": "宽粉",
+        "price": 12,
+        "category": "素菜",
+        "tags": "",
+        "file": "dish_huoguo_kuanfen.png"
+      },
+      {
+        "name": "鲜鸭血",
+        "price": 16,
+        "category": "素菜",
+        "tags": "",
+        "file": "dish_huoguo_yaxue.png"
+      }
+    ],
+    "烤肉": [
+      {
+        "name": "厚切五花肉",
+        "price": 45,
+        "category": "荤菜",
+        "tags": "招牌,必点",
+        "file": "dish_kaorou_wuhua.png"
+      },
+      {
+        "name": "牛舌",
+        "price": 58,
+        "category": "荤菜",
+        "tags": "",
+        "file": "dish_kaorou_niushi.png"
+      },
+      {
+        "name": "调味牛肋条",
+        "price": 62,
+        "category": "荤菜",
+        "tags": "招牌",
+        "file": "dish_kaorou_niulei.png"
+      },
+      {
+        "name": "鸡翅中",
+        "price": 32,
+        "category": "荤菜",
+        "tags": "",
+        "file": "dish_kaorou_jichi.png"
+      },
+      {
+        "name": "烤肠拼盘",
+        "price": 28,
+        "category": "荤菜",
+        "tags": "",
+        "file": "dish_kaorou_kaochang.png"
+      },
+      {
+        "name": "生菜拼盘",
+        "price": 15,
+        "category": "素菜",
+        "tags": "清淡",
+        "file": "dish_kaorou_shengcai.png"
+      },
+      {
+        "name": "石锅拌饭",
+        "price": 26,
+        "category": "主食",
+        "tags": "",
+        "file": "dish_kaorou_bibimbap.png"
+      },
+      {
+        "name": "冷面",
+        "price": 22,
+        "category": "主食",
+        "tags": "清淡",
+        "file": "dish_kaorou_lengmian.png"
+      }
+    ],
+    "日料": [
+      {
+        "name": "三文鱼刺身",
+        "price": 68,
+        "category": "刺身",
+        "tags": "招牌",
+        "file": "dish_riliao_sanwenyu.png"
+      },
+      {
+        "name": "金枪鱼寿司",
+        "price": 32,
+        "category": "寿司",
+        "tags": "",
+        "file": "dish_riliao_jinqiangyu.png"
+      },
+      {
+        "name": "鳗鱼饭",
+        "price": 58,
+        "category": "主食",
+        "tags": "必点",
+        "file": "dish_riliao_manyufan.png"
+      },
+      {
+        "name": "天妇罗拼盘",
+        "price": 48,
+        "category": "炸物",
+        "tags": "",
+        "file": "dish_riliao_tianfuluo.png"
+      },
+      {
+        "name": "烧鸟串",
+        "price": 18,
+        "category": "串烧",
+        "tags": "必点",
+        "file": "dish_riliao_shaoniao.png"
+      },
+      {
+        "name": "味增汤",
+        "price": 12,
+        "category": "汤",
+        "tags": "清淡",
+        "file": "dish_riliao_weizengtang.png"
+      },
+      {
+        "name": "茶碗蒸",
+        "price": 20,
+        "category": "小食",
+        "tags": "清淡",
+        "file": "dish_riliao_chawanzheng.png"
+      },
+      {
+        "name": "加州卷",
+        "price": 36,
+        "category": "寿司",
+        "tags": "",
+        "file": "dish_riliao_jiazhoujuan.png"
+      }
+    ],
+    "川菜": [
+      {
+        "name": "宫保鸡丁",
+        "price": 38,
+        "category": "热菜",
+        "tags": "招牌",
+        "file": "dish_chuancai_gongbao.png"
+      },
+      {
+        "name": "水煮鱼",
+        "price": 68,
+        "category": "热菜",
+        "tags": "招牌,辣",
+        "file": "dish_chuancai_shuizhuyu.png"
+      },
+      {
+        "name": "麻婆豆腐",
+        "price": 26,
+        "category": "热菜",
+        "tags": "辣",
+        "file": "dish_chuancai_mapo.png"
+      },
+      {
+        "name": "回锅肉",
+        "price": 36,
+        "category": "热菜",
+        "tags": "",
+        "file": "dish_chuancai_huiguorou.png"
+      },
+      {
+        "name": "夫妻肺片",
+        "price": 32,
+        "category": "凉菜",
+        "tags": "辣",
+        "file": "dish_chuancai_fuqifeipian.png"
+      },
+      {
+        "name": "鱼香肉丝",
+        "price": 34,
+        "category": "热菜",
+        "tags": "",
+        "file": "dish_chuancai_yuxiang.png"
+      },
+      {
+        "name": "干煸四季豆",
+        "price": 24,
+        "category": "素菜",
+        "tags": "",
+        "file": "dish_chuancai_sijidou.png"
+      },
+      {
+        "name": "担担面",
+        "price": 18,
+        "category": "主食",
+        "tags": "辣",
+        "file": "dish_chuancai_dandanmian.png"
+      }
+    ],
+    "粤菜": [
+      {
+        "name": "白切鸡",
+        "price": 48,
+        "category": "热菜",
+        "tags": "招牌",
+        "file": "dish_yuecai_baqieji.png"
+      },
+      {
+        "name": "虾饺皇",
+        "price": 28,
+        "category": "点心",
+        "tags": "必点",
+        "file": "dish_yuecai_xiajiao.png"
+      },
+      {
+        "name": "叉烧包",
+        "price": 22,
+        "category": "点心",
+        "tags": "",
+        "file": "dish_yuecai_chashaobao.png"
+      },
+      {
+        "name": "豉汁蒸排骨",
+        "price": 32,
+        "category": "点心",
+        "tags": "",
+        "file": "dish_yuecai_zhengpaigu.png"
+      },
+      {
+        "name": "佛跳墙",
+        "price": 128,
+        "category": "汤",
+        "tags": "招牌",
+        "file": "dish_yuecai_fotiaoqiang.png"
+      },
+      {
+        "name": "干炒牛河",
+        "price": 38,
+        "category": "主食",
+        "tags": "",
+        "file": "dish_yuecai_ganchaoniuhe.png"
+      },
+      {
+        "name": "白灼菜心",
+        "price": 22,
+        "category": "素菜",
+        "tags": "清淡",
+        "file": "dish_yuecai_caixin.png"
+      },
+      {
+        "name": "老火例汤",
+        "price": 26,
+        "category": "汤",
+        "tags": "清淡",
+        "file": "dish_yuecai_laohuotang.png"
+      }
+    ],
+    "西餐": [
+      {
+        "name": "台塑牛排",
+        "price": 198,
+        "category": "主菜",
+        "tags": "招牌",
+        "file": "dish_xican_niupai.png"
+      },
+      {
+        "name": "香煎三文鱼",
+        "price": 88,
+        "category": "主菜",
+        "tags": "",
+        "file": "dish_xican_sanwenyu.png"
+      },
+      {
+        "name": "凯撒沙拉",
+        "price": 38,
+        "category": "沙拉",
+        "tags": "清淡",
+        "file": "dish_xican_kasaishala.png"
+      },
+      {
+        "name": "奶油蘑菇汤",
+        "price": 28,
+        "category": "汤",
+        "tags": "",
+        "file": "dish_xican_mogutang.png"
+      },
+      {
+        "name": "蒜香法棍",
+        "price": 18,
+        "category": "前菜",
+        "tags": "",
+        "file": "dish_xican_fagun.png"
+      },
+      {
+        "name": "提拉米苏",
+        "price": 36,
+        "category": "甜品",
+        "tags": "必点",
+        "file": "dish_xican_tilamisu.png"
+      },
+      {
+        "name": "烤鸡翅",
+        "price": 42,
+        "category": "小食",
+        "tags": "",
+        "file": "dish_xican_kaojichi.png"
+      },
+      {
+        "name": "意式肉酱面",
+        "price": 58,
+        "category": "主食",
+        "tags": "",
+        "file": "dish_xican_yishimian.png"
+      }
+    ],
+    "快餐": [
+      {
+        "name": "香菇滑鸡饭",
+        "price": 26,
+        "category": "套餐",
+        "tags": "招牌",
+        "file": "dish_kuaican_huajifan.png"
+      },
+      {
+        "name": "豉汁排骨饭",
+        "price": 28,
+        "category": "套餐",
+        "tags": "",
+        "file": "dish_kuaican_paigufan.png"
+      },
+      {
+        "name": "梅菜扣肉饭",
+        "price": 30,
+        "category": "套餐",
+        "tags": "",
+        "file": "dish_kuaican_kouroufan.png"
+      },
+      {
+        "name": "蒸蛋",
+        "price": 8,
+        "category": "小食",
+        "tags": "清淡",
+        "file": "dish_kuaican_zhengdan.png"
+      },
+      {
+        "name": "例汤",
+        "price": 6,
+        "category": "汤",
+        "tags": "清淡",
+        "file": "dish_kuaican_litang.png"
+      },
+      {
+        "name": "时蔬",
+        "price": 10,
+        "category": "素菜",
+        "tags": "清淡",
+        "file": "dish_kuaican_shishu.png"
+      },
+      {
+        "name": "卤蛋",
+        "price": 5,
+        "category": "小食",
+        "tags": "",
+        "file": "dish_kuaican_ludan.png"
+      },
+      {
+        "name": "米饭",
+        "price": 3,
+        "category": "主食",
+        "tags": "",
+        "file": "dish_kuaican_mifan.png"
+      }
+    ],
+    "素食": [
+      {
+        "name": "素红烧肉",
+        "price": 38,
+        "category": "热菜",
+        "tags": "招牌",
+        "file": "dish_sushi_suhongshaorou.png"
+      },
+      {
+        "name": "罗汉斋",
+        "price": 42,
+        "category": "热菜",
+        "tags": "必点",
+        "file": "dish_sushi_luohanzhai.png"
+      },
+      {
+        "name": "香菇青菜",
+        "price": 22,
+        "category": "素菜",
+        "tags": "清淡",
+        "file": "dish_sushi_xiangguqingcai.png"
+      },
+      {
+        "name": "菌菇汤",
+        "price": 28,
+        "category": "汤",
+        "tags": "清淡",
+        "file": "dish_sushi_jungutang.png"
+      },
+      {
+        "name": "素春卷",
+        "price": 20,
+        "category": "小食",
+        "tags": "",
+        "file": "dish_sushi_chunjuan.png"
+      },
+      {
+        "name": "五谷杂粮饭",
+        "price": 16,
+        "category": "主食",
+        "tags": "",
+        "file": "dish_sushi_wugufan.png"
+      },
+      {
+        "name": "凉拌木耳",
+        "price": 18,
+        "category": "凉菜",
+        "tags": "清淡",
+        "file": "dish_sushi_liangbanmuer.png"
+      },
+      {
+        "name": "素麻婆豆腐",
+        "price": 24,
+        "category": "热菜",
+        "tags": "辣",
+        "file": "dish_sushi_sumapo.png"
+      }
+    ]
+  },
+  "restaurants": [
+    {
+      "name": "蜀九香老灶火锅",
+      "cuisine_type": "火锅",
+      "district": "国贸商圈",
+      "avg_price": 118,
+      "description": "牛油九宫格锅底，毛肚鹅肠双拼人气必点",
+      "image": "rest_huoguo_01.png",
+      "dish_names": [
+        "牛油锅底",
+        "毛肚",
+        "鹅肠",
+        "虾滑",
+        "黄喉",
+        "鲜鸭血"
+      ],
+      "latitude": 39.9088,
+      "longitude": 116.4613
+    },
+    {
+      "name": "海底捞（三里屯店）",
+      "cuisine_type": "火锅",
+      "district": "三里屯",
+      "avg_price": 135,
+      "description": "番茄锅底人气之选，服务贴心可代客涮煮",
+      "image": "rest_huoguo_02.png",
+      "dish_names": [
+        "牛油锅底",
+        "毛肚",
+        "虾滑",
+        "肥牛卷",
+        "宽粉",
+        "鲜鸭血"
+      ],
+      "latitude": 39.9368,
+      "longitude": 116.4551
+    },
+    {
+      "name": "汉拿山韩式烤肉",
+      "cuisine_type": "烤肉",
+      "district": "中关村",
+      "avg_price": 98,
+      "description": "韩式炭烤厚切五花肉，配石锅拌饭",
+      "image": "rest_kaorou_01.png",
+      "dish_names": [
+        "厚切五花肉",
+        "牛舌",
+        "调味牛肋条",
+        "鸡翅中",
+        "生菜拼盘",
+        "石锅拌饭"
+      ],
+      "latitude": 39.9848,
+      "longitude": 116.317
+    },
+    {
+      "name": "炉小哥烤肉",
+      "cuisine_type": "烤肉",
+      "district": "望京",
+      "avg_price": 105,
+      "description": "自助炭烤牛舌现切，冷面解腻",
+      "image": "rest_kaorou_02.png",
+      "dish_names": [
+        "厚切五花肉",
+        "调味牛肋条",
+        "烤肠拼盘",
+        "生菜拼盘",
+        "石锅拌饭",
+        "冷面"
+      ],
+      "latitude": 40.0025,
+      "longitude": 116.47
+    },
+    {
+      "name": "一膳寿司",
+      "cuisine_type": "日料",
+      "district": "三里屯",
+      "avg_price": 156,
+      "description": "江户前寿司，刺身每日直送",
+      "image": "rest_riliao_01.png",
+      "dish_names": [
+        "三文鱼刺身",
+        "金枪鱼寿司",
+        "鳗鱼饭",
+        "天妇罗拼盘",
+        "味增汤",
+        "茶碗蒸"
+      ],
+      "latitude": 39.939,
+      "longitude": 116.4533
+    },
+    {
+      "name": "居酒屋鸟匠",
+      "cuisine_type": "日料",
+      "district": "亮马桥",
+      "avg_price": 142,
+      "description": "烧鸟串烧配清酒，深夜食堂氛围",
+      "image": "rest_riliao_02.png",
+      "dish_names": [
+        "三文鱼刺身",
+        "烧鸟串",
+        "天妇罗拼盘",
+        "味增汤",
+        "茶碗蒸",
+        "加州卷"
+      ],
+      "latitude": 39.9495,
+      "longitude": 116.466
+    },
+    {
+      "name": "眉州东坡",
+      "cuisine_type": "川菜",
+      "district": "望京",
+      "avg_price": 88,
+      "description": "宫保鸡丁与东坡肘子，川菜老字号",
+      "image": "rest_chuancai_01.png",
+      "dish_names": [
+        "宫保鸡丁",
+        "水煮鱼",
+        "麻婆豆腐",
+        "回锅肉",
+        "干煸四季豆",
+        "担担面"
+      ],
+      "latitude": 40.0047,
+      "longitude": 116.4682
+    },
+    {
+      "name": "蜀园川菜馆",
+      "cuisine_type": "川菜",
+      "district": "西单",
+      "avg_price": 76,
+      "description": "水煮鱼麻辣鲜香，夫妻肺片必点",
+      "image": "rest_chuancai_02.png",
+      "dish_names": [
+        "水煮鱼",
+        "夫妻肺片",
+        "鱼香肉丝",
+        "回锅肉",
+        "干煸四季豆",
+        "担担面"
+      ],
+      "latitude": 39.9077,
+      "longitude": 116.374
+    },
+    {
+      "name": "点都德",
+      "cuisine_type": "粤菜",
+      "district": "亦庄",
+      "avg_price": 82,
+      "description": "广式早茶点心，虾饺皇皮薄馅足",
+      "image": "rest_yuecai_01.png",
+      "dish_names": [
+        "虾饺皇",
+        "叉烧包",
+        "豉汁蒸排骨",
+        "干炒牛河",
+        "白灼菜心",
+        "老火例汤"
+      ],
+      "latitude": 39.8085,
+      "longitude": 116.506
+    },
+    {
+      "name": "粤鲜阁",
+      "cuisine_type": "粤菜",
+      "district": "国贸商圈",
+      "avg_price": 128,
+      "description": "白切鸡与老火靓汤，佛跳墙需预订",
+      "image": "rest_yuecai_02.png",
+      "dish_names": [
+        "白切鸡",
+        "虾饺皇",
+        "豉汁蒸排骨",
+        "佛跳墙",
+        "白灼菜心",
+        "老火例汤"
+      ],
+      "latitude": 39.911,
+      "longitude": 116.4595
+    },
+    {
+      "name": "王品牛排",
+      "cuisine_type": "西餐",
+      "district": "建国门",
+      "avg_price": 268,
+      "description": "台塑牛排套餐，纪念日首选",
+      "image": "rest_xican_01.png",
+      "dish_names": [
+        "台塑牛排",
+        "凯撒沙拉",
+        "奶油蘑菇汤",
+        "蒜香法棍",
+        "提拉米苏",
+        "烤鸡翅"
+      ],
+      "latitude": 39.908,
+      "longitude": 116.434
+    },
+    {
+      "name": "Blue Frog 蓝蛙",
+      "cuisine_type": "西餐",
+      "district": "三里屯",
+      "avg_price": 168,
+      "description": "美式汉堡与烤鸡翅，露台位可看夜景",
+      "image": "rest_xican_02.png",
+      "dish_names": [
+        "香煎三文鱼",
+        "凯撒沙拉",
+        "蒜香法棍",
+        "烤鸡翅",
+        "意式肉酱面",
+        "提拉米苏"
+      ],
+      "latitude": 39.9349,
+      "longitude": 116.4572
+    },
+    {
+      "name": "真功夫",
+      "cuisine_type": "快餐",
+      "district": "西单",
+      "avg_price": 42,
+      "description": "中式蒸品快餐，香菇滑鸡饭招牌",
+      "image": "rest_kuaican_01.png",
+      "dish_names": [
+        "香菇滑鸡饭",
+        "豉汁排骨饭",
+        "蒸蛋",
+        "例汤",
+        "时蔬",
+        "米饭"
+      ],
+      "latitude": 39.9099,
+      "longitude": 116.3722
+    },
+    {
+      "name": "老乡鸡",
+      "cuisine_type": "快餐",
+      "district": "中关村",
+      "avg_price": 38,
+      "description": "家常小炒快餐，出餐快适合工作日",
+      "image": "rest_kuaican_02.png",
+      "dish_names": [
+        "梅菜扣肉饭",
+        "香菇滑鸡饭",
+        "卤蛋",
+        "例汤",
+        "时蔬",
+        "米饭"
+      ],
+      "latitude": 39.987,
+      "longitude": 116.3152
+    },
+    {
+      "name": "功德林素菜馆",
+      "cuisine_type": "素食",
+      "district": "前门",
+      "avg_price": 96,
+      "description": "老字号素菜荤做，罗汉斋口碑之选",
+      "image": "rest_sushi_01.png",
+      "dish_names": [
+        "素红烧肉",
+        "罗汉斋",
+        "香菇青菜",
+        "菌菇汤",
+        "素春卷",
+        "五谷杂粮饭"
+      ],
+      "latitude": 39.899,
+      "longitude": 116.398
+    },
+    {
+      "name": "素香斋",
+      "cuisine_type": "素食",
+      "district": "五道口",
+      "avg_price": 68,
+      "description": "蔬食轻食与菌菇汤，少油少盐",
+      "image": "rest_sushi_02.png",
+      "dish_names": [
+        "罗汉斋",
+        "香菇青菜",
+        "菌菇汤",
+        "素春卷",
+        "凉拌木耳",
+        "素麻婆豆腐"
+      ],
+      "latitude": 39.9928,
+      "longitude": 116.337
+    }
+  ]
+}

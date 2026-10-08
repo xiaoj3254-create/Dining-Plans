@@ -1,0 +1,94 @@
+{
+  "pages": [
+    {
+      "path": "pages/plaza/plaza",
+      "style": { "navigationBarTitleText": "约饭广场", "enablePullDownRefresh": true }
+    },
+    {
+      "path": "pages/my-teams/my-teams",
+      "style": { "navigationBarTitleText": "我的组队", "enablePullDownRefresh": true }
+    },
+    {
+      "path": "pages/notifications/notifications",
+      "style": { "navigationBarTitleText": "消息通知", "enablePullDownRefresh": true }
+    },
+    {
+      "path": "pages/me/me",
+      "style": { "navigationBarTitleText": "我的" }
+    },
+    {
+      "path": "pages/agreement/agreement",
+      "style": { "navigationBarTitleText": "用户协议与隐私政策" }
+    },
+    {
+      "path": "pages/history/history",
+      "style": { "navigationBarTitleText": "我的历史饭局" }
+    },
+    {
+      "path": "pages/team-create/team-create",
+      "style": { "navigationBarTitleText": "发起约饭" }
+    },
+    {
+      "path": "pages/restaurant-select/restaurant-select",
+      "style": { "navigationBarTitleText": "选择餐馆" }
+    },
+    {
+      "path": "pages/restaurant-detail/restaurant-detail",
+      "style": { "navigationBarTitleText": "餐馆简介" }
+    },
+    {
+      "path": "pages/dish-select/dish-select",
+      "style": { "navigationBarTitleText": "选菜" }
+    },
+    {
+      "path": "pages/team-detail/team-detail",
+      "style": { "navigationBarTitleText": "队伍详情" }
+    },
+    {
+      "path": "pages/chat/chat",
+      "style": { "navigationBarTitleText": "队伍群聊" }
+    },
+    {
+      "path": "pages/bill/bill",
+      "style": { "navigationBarTitleText": "核销与账单" }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "约饭组队",
+    "navigationBarBackgroundColor": "#6c5ce7",
+    "backgroundColor": "#f7f7fc"
+  },
+  "tabBar": {
+    "color": "#b2b2b2",
+    "selectedColor": "#6c5ce7",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/plaza/plaza",
+        "text": "广场",
+        "iconPath": "static/tabbar/plaza.png",
+        "selectedIconPath": "static/tabbar/plaza-active.png"
+      },
+      {
+        "pagePath": "pages/my-teams/my-teams",
+        "text": "组队",
+        "iconPath": "static/tabbar/team.png",
+        "selectedIconPath": "static/tabbar/team-active.png"
+      },
+      {
+        "pagePath": "pages/notifications/notifications",
+        "text": "消息",
+        "iconPath": "static/tabbar/message.png",
+        "selectedIconPath": "static/tabbar/message-active.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "static/tabbar/me.png",
+        "selectedIconPath": "static/tabbar/me-active.png"
+      }
+    ]
+  }
+}
