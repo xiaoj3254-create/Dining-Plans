@@ -1,5 +1,12 @@
 <template>
   <view class="page">
+    <!-- 顶部 Hero -->
+    <view class="hero">
+      <text class="hero-kicker">消息中心</text>
+      <view class="hero-title">消息通知</view>
+      <view class="hero-sub">报名、成团、账单，Agent 自动推送到这里</view>
+    </view>
+
     <!-- 类型筛选：全部 / 待办 / 系统通知 -->
     <view class="chips">
       <view v-for="c in filterChips" :key="c.key" class="chip"
@@ -352,25 +359,25 @@ export default {
 
 /* 类型筛选 */
 .chips {
-  display: flex; gap: 16rpx; background: #fff;
-  padding: 22rpx 20rpx 6rpx;
+  display: flex; gap: 16rpx;
+  padding: 24rpx 24rpx 6rpx;
   /* 顶部安全区：原生导航栏下通常为 0；自定义导航栏时补出状态栏高度防遮挡 */
-  padding-top: calc(22rpx + env(safe-area-inset-top));
+  padding-top: calc(24rpx + env(safe-area-inset-top));
 }
 .chip {
-  padding: 10rpx 26rpx; border-radius: 30rpx; background: #efeef6;
+  padding: 10rpx 28rpx; border-radius: 32rpx; background: #f3f3f7;
   color: #636e72; font-size: 26rpx;
 }
-.chip.active { background: #6c5ce7; color: #fff; }
+.chip.active { background: #6c5ce7; color: #fff; font-weight: 600; box-shadow: 0 4rpx 12rpx rgba(108, 92, 231, 0.25); }
 .summary {
-  margin: 20rpx 20rpx 0; padding: 24rpx; border-radius: 20rpx;
-  background: #f0eeff; display: flex; flex-direction: column; gap: 6rpx;
+  margin: 20rpx 20rpx 0; padding: 24rpx; border-radius: 24rpx;
+  background: linear-gradient(135deg, #f0eeff 0%, #e6e2ff 100%); display: flex; flex-direction: column; gap: 6rpx;
 }
 .sum-title { font-size: 30rpx; font-weight: 700; color: #6c5ce7; }
 .sum-sub { font-size: 22rpx; color: #a29bfe; }
 
 .group { margin-top: 24rpx; }
-.group-head { display: flex; align-items: center; gap: 12rpx; padding: 0 24rpx 10rpx; }
+.group-head { display: flex; align-items: center; gap: 12rpx; padding: 0 28rpx 12rpx; }
 .g-name { font-size: 26rpx; color: #636e72; font-weight: 600; }
 .g-badge {
   min-width: 32rpx; height: 32rpx; line-height: 32rpx; text-align: center;
@@ -381,8 +388,8 @@ export default {
 .msg-card {
   display: flex; align-items: flex-start;
   margin: 0 20rpx 16rpx; padding: 24rpx;
-  background: #fff; border-radius: 20rpx;
-  box-shadow: 0 6rpx 20rpx rgba(45, 52, 54, 0.06);
+  background: #fff; border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(45, 52, 54, 0.05);
 }
 .msg-pressed { opacity: 0.92; }
 /* 未读：左侧竖线突出；已读不整体降透明度（保持正常可读） */

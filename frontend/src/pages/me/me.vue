@@ -1,25 +1,57 @@
 <template>
   <view class="page" :class="{ 'tab-in': tabAnim }">
-    <!-- 卡片 1：用户信息 -->
-    <view class="card">
-      <view class="card-head">
-        <text class="ch-title">用户信息</text>
-        <text class="st" :class="statusCls">{{ statusText }}</text>
-      </view>
-      <view class="profile-row">
-        <view class="avatar">{{ user && user.nickname ? user.nickname.slice(0, 1) : "?" }}</view>
-        <view class="info">
-          <view class="nick-text">{{ user ? user.nickname : "未登录" }}</view>
-          <view class="muted" v-if="user">{{ genderText(user.gender) }} · {{ user.age }}岁</view>
-          <view class="muted" v-else>连接后端后自动登录</view>
+    <!-- Hero：渐变头 + 大头像 + 昵称 + 实名状态 -->
+    <view class="hero me-hero">
+      <view class="me-row">
+        <view class="me-avatar">{{ user && user.nickname ? user.nickname.slice(0, 1) : "?" }}</view>
+        <view class="me-info">
+          <view class="me-name">{{ user ? user.nickname : "未登录" }}</view>
+          <view class="me-sub" v-if="user">
+            {{ genderText(user.gender) }} · {{ user.age }}岁
+            <text class="me-verified" v-if="verified">已实名</text>
+          </view>
+          <view class="me-sub" v-else>连接后端后自动登录</view>
         </view>
+        <view class="me-set" hover-class="btn-pressed" @tap="openDoc('terms')">⚙️</view>
       </view>
-      <view class="banner" v-if="isRestricted">
+      <view class="me-banner" v-if="isRestricted">
         账号已被限制使用组队功能（{{ user.restricted_reason || "存在违规行为" }}）。
       </view>
     </view>
 
-    <!-- 卡片 2：对外资料 -->
+    <!-- 统计条：招募中 / 已成团 / 已结束 -->
+    <view class="stats hero-overlap">
+      <view class="stat" hover-class="btn-pressed" @tap="goMyTeams('recruiting')">
+        <text class="stat-num">{{ statRecruiting }}</text>
+        <text class="stat-label">招募中</text>
+      </view>
+      <view class="stat" hover-class="btn-pressed" @tap="goMyTeams('formed')">
+        <text class="stat-num">{{ statFormed }}</text>
+        <text class="stat-label">已成团</text>
+      </view>
+      <view class="stat" hover-class="btn-pressed" @tap="goHistory">
+        <text class="stat-num">{{ statClosed }}</text>
+        <text class="stat-label">已结束</text>
+      </view>
+    </view>
+
+    <!-- 快捷菜单：图标色块 + 红点角标 -->
+    <view class="card menu-card">
+      <view class="menu-item" hover-class="btn-pressed" @tap="goNotifications">
+        <view class="mi-icon mi-blue">🔔</view>
+        <text class="mi-title">消息通知</text>
+        <text class="mi-badge" v-if="unread">{{ unread > 99 ? "99+" : unread }}</text>
+        <text class="mi-chev">›</text>
+      </view>
+      <view class="menu-item" hover-class="btn-pressed" @tap="goHistory">
+        <view class="mi-icon mi-orange">🍜</view>
+        <text class="mi-title">我的历史饭局</text>
+        <text class="mi-value">查看消费记录</text>
+        <text class="mi-chev">›</text>
+      </view>
+    </view>
+
+    <!-- 卡片：对外资料 -->
     <view class="card">
       <view class="card-head"><text class="ch-title">对外资料</text></view>
       <view class="tip-small">其他用户仅能看到你的昵称、年龄、性别。</view>
@@ -51,18 +83,7 @@
       </view>
     </view>
 
-    <!-- 卡片 3：我的历史饭局 -->
-    <view class="card link-card">
-      <view class="link-row" hover-class="btn-pressed" @tap="goHistory">
-        <view class="link-main">
-          <text class="link-title">我的历史饭局</text>
-          <text class="tip-small">查看已完成的约饭记录与消费</text>
-        </view>
-        <text class="arrow">›</text>
-      </view>
-    </view>
-
-    <!-- 卡片 4：实名登记（说明精简） -->
+    <!-- 卡片：实名登记（说明精简） -->
     <view class="card">
       <view class="card-head">
         <text class="ch-title">
@@ -104,9 +125,11 @@
       </view>
     </view>
 
-    <!-- 卡片 5：协议与政策 -->
+    <!-- 卡片：协议与政策 -->
     <view class="card">
-      <view class="card-head"><text class="ch-title">协议与政策</text></view>
+      <view class="card-head">
+        <text class="ch-title"><text class="head-ico mi-purple">📄</text>协议与政策</text>
+      </view>
       <view class="link-row" hover-class="btn-pressed" @tap="openDoc('terms')">
         <text>用户服务协议</text><text class="arrow">›</text>
       </view>
@@ -119,9 +142,9 @@
       <view class="tip-small">已同意版本：{{ user && user.consent_version ? user.consent_version : "—" }}</view>
     </view>
 
-    <!-- 卡片 6：演示工具 -->
+    <!-- 卡片：演示工具 -->
     <view class="card">
-      <view class="card-head"><text class="ch-title">演示工具</text></view>
+      <view class="card-head"><text class="ch-title"><text class="head-ico mi-gray">🧪</text>演示工具</text></view>
       <view class="tip-small">多账号模拟，模拟器切换身份，扮演队长/队员，验证组队、踢人、报名完整业务流程。</view>
       <input class="input input-block" v-model="switchName" placeholder="输入账号名，如 leader / a1 / a2"
              :adjust-position="true" :cursor-spacing="24" />
@@ -131,9 +154,9 @@
       </view>
     </view>
 
-    <!-- 卡片 7：注销（PIPL 删除权） -->
-    <view class="card">
-      <view class="card-head"><text class="ch-title">注销账号</text></view>
+    <!-- 卡片：注销（PIPL 删除权） -->
+    <view class="card danger-card">
+      <view class="card-head"><text class="ch-title"><text class="head-ico mi-warn-ico">⚠️</text>注销账号</text></view>
       <view class="tip-small">
         注销后姓名与证件信息立即清除、登录凭证失效，历史队伍中的昵称将被匿名化；进行中的饭局会被关闭。不可恢复。
       </view>
@@ -178,6 +201,7 @@
 <script>
 import { useAuthStore } from "../../stores/auth";
 import { subscribe } from "../../utils/ws";
+import { get } from "../../utils/request";
 import { toastOk, confirm } from "../../utils/ui";
 
 export default {
@@ -190,6 +214,8 @@ export default {
       tabAnim: false,
       showRealnameTip: false,
       showPreview: false,
+      teamGroups: {}, // 我的饭局分组（统计条用）
+      unread: 0,      // 未读消息数（菜单角标用）
     };
   },
   computed: {
@@ -212,6 +238,17 @@ export default {
       if (this.user.restricted) return "st-warn";
       return this.verified ? "st-done" : "st-notice";
     },
+    statRecruiting() {
+      const g = this.teamGroups || {};
+      return (g.draft || []).length + (g.recruiting || []).length;
+    },
+    statFormed() {
+      return (this.teamGroups.formed || []).length;
+    },
+    statClosed() {
+      const g = this.teamGroups || {};
+      return (g.completed || []).length + (g.failed || []).length;
+    },
     profileValid() {
       return !!(this.form.nickname && this.form.nickname.trim() && Number(this.form.age) >= 18);
     },
@@ -226,9 +263,27 @@ export default {
     auth.silentLogin().then(() => {
       if (auth.user) this.fillForm(auth);
     });
+    this.loadSummary();
     this.playTabAnim();
   },
   methods: {
+    /** 统计条 + 未读角标：静默拉取，失败不影响页面 */
+    async loadSummary() {
+      try {
+        const res = await get("/api/users/me/teams");
+        this.teamGroups = res.groups || {};
+      } catch (e) { /* 忽略，统计条保持 0 */ }
+      try {
+        const res = await get("/api/notifications?page=1&page_size=1");
+        this.unread = res.unread || 0;
+      } catch (e) { /* 忽略 */ }
+    },
+    goNotifications() {
+      uni.switchTab({ url: "/pages/notifications/notifications" });
+    },
+    goMyTeams() {
+      uni.switchTab({ url: "/pages/my-teams/my-teams" });
+    },
     playTabAnim() {
       this.tabAnim = false;
       setTimeout(() => {
@@ -320,6 +375,47 @@ export default {
 <style scoped>
 .page { padding-bottom: calc(40rpx + env(safe-area-inset-bottom)); }
 
+/* ---------- Hero 头部 ---------- */
+.me-hero { padding-bottom: 56rpx; }
+.me-row { display: flex; align-items: center; gap: 24rpx; }
+/* 淡绿圆底大头像（参考主流 App 的 Profile 头部） */
+.me-avatar {
+  width: 128rpx; height: 128rpx; border-radius: 50%; flex-shrink: 0;
+  background: #a7f3d0; color: #065f46; font-size: 56rpx; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.15);
+}
+.me-info { flex: 1; min-width: 0; }
+.me-name { font-size: 42rpx; font-weight: 700; color: #fff; }
+.me-sub {
+  font-size: 26rpx; color: rgba(255, 255, 255, 0.82); margin-top: 10rpx;
+  display: flex; align-items: center; gap: 12rpx;
+}
+.me-verified {
+  font-size: 20rpx; padding: 2rpx 14rpx; border-radius: 14rpx;
+  background: rgba(255, 255, 255, 0.22); color: #fff; line-height: 1.7;
+}
+.me-set {
+  width: 64rpx; height: 64rpx; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.16); font-size: 32rpx;
+  display: flex; align-items: center; justify-content: center;
+}
+.me-banner {
+  margin-top: 24rpx; padding: 16rpx 20rpx; border-radius: 16rpx;
+  background: rgba(255, 255, 255, 0.14); color: #ffd5d5; font-size: 24rpx; line-height: 1.6;
+}
+
+/* 卡片头部图标（小号色块） */
+.head-ico {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48rpx; height: 48rpx; border-radius: 14rpx; font-size: 26rpx;
+  margin-right: 14rpx; vertical-align: -8rpx;
+}
+.mi-warn-ico { background: #fff0f0; }
+
+/* 注销卡片弱化：它不是常规功能，视觉降权 */
+.danger-card { background: #fffafa; }
+
 /* 卡片头部：标题左、状态/问号右，位置统一 */
 .card-head {
   display: flex; align-items: center; justify-content: space-between;
@@ -331,15 +427,7 @@ export default {
 }
 .inline-tag { font-weight: 400; }
 
-.profile-row { display: flex; align-items: center; }
-.avatar {
-  width: 128rpx; height: 128rpx; border-radius: 50%; flex-shrink: 0;
-  background: #6c5ce7; color: #fff; font-size: 56rpx;
-  display: flex; align-items: center; justify-content: center;
-}
 .avatar.big { width: 112rpx; height: 112rpx; font-size: 48rpx; }
-.info { margin-left: 24rpx; flex: 1; }
-.nick-text { font-size: 36rpx; font-weight: 700; margin-bottom: 6rpx; }
 
 .qmark {
   width: 40rpx; height: 40rpx; line-height: 40rpx; text-align: center;
@@ -353,9 +441,6 @@ export default {
 .btn-row .btn { margin-top: 0; }
 .flex1 { flex: 1; }
 
-.link-card { padding: 4rpx 24rpx; }
-.link-main { display: flex; flex-direction: column; gap: 4rpx; }
-.link-title { font-size: 28rpx; color: #2d3436; }
 .link-row {
   display: flex; align-items: center; justify-content: space-between;
   padding: 22rpx 0; border-bottom: 2rpx solid #efeef6; font-size: 28rpx;
@@ -375,17 +460,13 @@ export default {
 .sheet-title { font-size: 32rpx; font-weight: 700; margin-bottom: 20rpx; }
 .rule { font-size: 25rpx; color: #636e72; line-height: 1.75; margin-bottom: 10rpx; }
 .btn-block { width: 100%; box-sizing: border-box; margin-top: 24rpx; }
-.banner {
-  margin-top: 20rpx; padding: 16rpx 20rpx; border-radius: 12rpx;
-  background: #fff0f0; color: #ff7675; font-size: 24rpx; line-height: 1.6;
-}
 .warn {
   margin-bottom: 20rpx; padding: 14rpx 18rpx; border-radius: 12rpx;
   background: #fdf1e3; color: #d98b26; font-size: 23rpx; line-height: 1.6;
 }
 .form-row { display: flex; align-items: center; margin-bottom: 22rpx; }
 .label { width: 120rpx; color: #636e72; flex-shrink: 0; }
-.input { flex: 1; background: #efeef6; border-radius: 12rpx; padding: 16rpx 20rpx; font-size: 28rpx; }
+.input { flex: 1; background: #f3f3f7; border-radius: 16rpx; padding: 16rpx 20rpx; font-size: 28rpx; }
 .input.locked { color: #b2b2b2; }
 .input-block { width: 100%; box-sizing: border-box; margin-bottom: 20rpx; }
 .radio-row { flex: 1; display: flex; align-items: center; }
@@ -400,4 +481,11 @@ export default {
   border-radius: 44rpx; font-size: 30rpx; padding: 18rpx 0; text-align: center;
 }
 .btn.disabled { opacity: 0.45; pointer-events: none; }
+
+/* 弹窗里复用的头像 */
+.preview .avatar {
+  width: 112rpx; height: 112rpx; border-radius: 50%; flex-shrink: 0;
+  background: #6c5ce7; color: #fff; font-size: 48rpx;
+  display: flex; align-items: center; justify-content: center;
+}
 </style>

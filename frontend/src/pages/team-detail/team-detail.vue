@@ -1,29 +1,29 @@
 <template>
   <view class="page page-with-footer" v-if="team">
-    <!-- 卡片 1：队伍概况 -->
-    <view class="card">
-      <view class="row1">
-        <text class="t-title name">{{ team.name }}</text>
-        <text class="st status-tag" :class="status.cls">{{ status.text }}</text>
+    <!-- Hero：队伍概况（渐变头部，饭局名大字 + 状态徽章 + 进度） -->
+    <view class="hero td-hero">
+      <view class="td-top">
+        <text class="st" :class="status.cls">{{ status.text }}</text>
+        <text class="td-dist" v-if="distText">📍 {{ distText }}</text>
       </view>
-      <view class="meta-row">
-        <text class="tag">{{ team.mode === "anonymous" ? "匿名拼桌" : "链接邀请" }}</text>
-        <text class="tag" v-if="team.cuisine_type">{{ team.cuisine_type }}</text>
-        <text class="st st-progress" v-if="distText">📍 {{ distText }}</text>
+      <view class="td-name">{{ team.name }}</view>
+      <view class="td-meta">
+        <text class="td-chip">{{ team.mode === "anonymous" ? "匿名拼桌" : "链接邀请" }}</text>
+        <text class="td-chip" v-if="team.cuisine_type">{{ team.cuisine_type }}</text>
       </view>
-      <view class="meta muted">时间：{{ diningText }}{{ period ? "（" + period + "）" : "" }}</view>
-      <view class="meta muted" v-if="team.location_hint">位置：{{ team.location_hint }}</view>
-      <view class="meta muted" v-if="team.failed_at">终止原因：{{ failReasonText(team.fail_reason) }}</view>
+      <view class="td-line">🕐 {{ diningText }}{{ period ? "（" + period + "）" : "" }}</view>
+      <view class="td-line" v-if="team.location_hint">📍 {{ team.location_hint }}</view>
+      <view class="td-line warn-line" v-if="team.failed_at">终止原因：{{ failReasonText(team.fail_reason) }}</view>
 
-      <!-- 进度：进度条 + 右侧人数；下一行放倒计时（分行更整齐） -->
-      <view class="progress-row">
+      <!-- 进度：白底进度条压在 Hero 上 -->
+      <view class="td-progress">
         <view class="progress-bg">
           <view class="progress-fg" :class="{ full: isFull }" :style="{ width: seatPercent + '%' }" />
         </view>
-        <text class="seat-text">{{ team.current_size }}/{{ team.target_size || "?" }} 人</text>
+        <text class="td-seat">{{ team.current_size }}/{{ team.target_size || "?" }} 人</text>
       </view>
-      <view class="progress-hint">
-        <text class="muted">已入队 {{ team.current_size }} 人{{ seatHint }}</text>
+      <view class="td-hint">
+        <text>已入队 {{ team.current_size }} 人{{ seatHint }}</text>
         <text class="countdown" :class="{ urgent: urgent }" v-if="recruitCountdown">{{ recruitCountdown }}</text>
       </view>
     </view>
@@ -553,24 +553,42 @@ export default {
 
 <style scoped>
 .page { padding-bottom: 200rpx; }
-.row1 { display: flex; align-items: flex-start; }
-.name { flex: 1; margin-right: 14rpx; }
-.status-tag { flex-shrink: 0; margin-left: auto; }
-.meta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10rpx; margin-top: 14rpx; }
-.meta { margin-top: 12rpx; }
 
-.progress-row { display: flex; align-items: center; margin-top: 22rpx; }
+/* ---------- Hero：队伍概况 ---------- */
+.td-hero { padding-bottom: 72rpx; }
+.td-top { display: flex; align-items: center; gap: 14rpx; }
+.td-dist {
+  font-size: 22rpx; color: #efeaff; background: rgba(255, 255, 255, 0.18);
+  padding: 4rpx 16rpx; border-radius: 16rpx;
+}
+.td-name { font-size: 44rpx; font-weight: 700; color: #fff; margin-top: 18rpx; letter-spacing: 1rpx; }
+.td-meta { display: flex; gap: 12rpx; margin-top: 16rpx; }
+.td-chip {
+  font-size: 22rpx; padding: 4rpx 18rpx; border-radius: 16rpx;
+  background: rgba(255, 255, 255, 0.16); color: #efeaff; line-height: 1.7;
+}
+.td-line { font-size: 25rpx; color: rgba(255, 255, 255, 0.85); margin-top: 14rpx; }
+.td-line.warn-line { color: #ffd5d5; }
+/* 进度：白色卡片条压在 Hero 圆角上 */
+.td-progress {
+  display: flex; align-items: center; margin-top: 28rpx;
+  background: #fff; border-radius: 20rpx; padding: 22rpx 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(45, 52, 54, 0.08);
+}
 .progress-bg { flex: 1; height: 14rpx; background: #efeef6; border-radius: 7rpx; overflow: hidden; }
 .progress-fg { height: 100%; background: #6c5ce7; border-radius: 7rpx; transition: width 0.3s; }
 .progress-fg.full { background: #10b981; }
-.seat-text { margin-left: 16rpx; color: #2d3436; font-size: 26rpx; font-weight: 700; min-width: 120rpx; text-align: right; }
-/* 人数与倒计时分行：阅读更整齐 */
-.progress-hint { display: flex; align-items: center; justify-content: space-between; margin-top: 10rpx; }
-.progress-hint .muted { font-size: 22rpx; }
-.countdown { font-size: 22rpx; color: #9aa0a6; }
-.countdown.urgent { color: #ff7675; font-weight: 600; }
+.td-seat { margin-left: 16rpx; color: #2d3436; font-size: 26rpx; font-weight: 700; min-width: 120rpx; text-align: right; }
+.td-hint { display: flex; align-items: center; justify-content: space-between; margin-top: 16rpx; }
+.td-hint text:first-child { font-size: 22rpx; color: rgba(255, 255, 255, 0.75); }
+.countdown { font-size: 22rpx; color: rgba(255, 255, 255, 0.85); }
+.countdown.urgent { color: #ffd0d0; font-weight: 600; }
 
-.notice { background: #f0eeff; }
+/* 补位提示：压在 Hero 圆角上的白色卡 */
+.notice {
+  background: #fff; margin-top: -32rpx; position: relative; z-index: 2;
+  border: 2rpx solid #e6e2ff;
+}
 .notice-title { font-weight: 700; color: #6c5ce7; margin-bottom: 8rpx; }
 
 .rest-row { display: flex; align-items: center; }

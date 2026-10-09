@@ -71,10 +71,10 @@ page {
 /* ---------- 卡片与分割 ---------- */
 .card {
   background: #fff;
-  border-radius: 20rpx;
-  padding: 24rpx;
+  border-radius: 24rpx;
+  padding: 28rpx;
   margin: 20rpx;
-  box-shadow: 0 6rpx 20rpx rgba(45, 52, 54, 0.06);
+  box-shadow: 0 8rpx 24rpx rgba(45, 52, 54, 0.05);
 }
 /* 卡片内的区块分割：菜品/成员/餐馆等模块之间拉开层级 */
 .section {
@@ -124,6 +124,71 @@ page {
 /* 禁用 / 请求中：统一置灰并屏蔽点击，杜绝重复提交 */
 .is-disabled { opacity: 0.45; pointer-events: none; }
 .is-loading { opacity: 0.7; pointer-events: none; }
+
+/* ---------- 顶部 Hero 区（深紫渐变头，参考主流 App 首页风格） ---------- */
+.hero {
+  background: linear-gradient(165deg, #8b7cf0 0%, #6c5ce7 48%, #4a3fd8 100%);
+  border-radius: 0 0 36rpx 36rpx;
+  padding: calc(28rpx + env(safe-area-inset-top)) 32rpx 40rpx;
+  color: #fff;
+}
+/* Hero 顶部小标签（胶囊，半透明白底） */
+.hero-kicker {
+  display: inline-block; font-size: 22rpx; padding: 6rpx 20rpx;
+  border-radius: 24rpx; background: rgba(255, 255, 255, 0.18); color: #efeaff;
+  margin-bottom: 18rpx; line-height: 1.6;
+}
+.hero-title { font-size: 44rpx; font-weight: 700; color: #fff; letter-spacing: 1rpx; }
+.hero-sub { font-size: 26rpx; color: rgba(255, 255, 255, 0.82); margin-top: 12rpx; line-height: 1.55; }
+/* Hero 与下方内容衔接：内容区上移到 Hero 的圆角里 */
+.hero-overlap { margin-top: -32rpx; position: relative; z-index: 2; }
+
+/* ---------- 统计条（白色圆角卡 + 三列数字） ---------- */
+.stats {
+  background: #fff; border-radius: 24rpx; margin: 20rpx;
+  padding: 28rpx 12rpx; box-shadow: 0 8rpx 24rpx rgba(45, 52, 54, 0.05);
+  display: flex;
+}
+.stat { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8rpx; position: relative; }
+.stat + .stat::before {
+  content: ""; position: absolute; left: 0; top: 18%; height: 64%;
+  width: 2rpx; background: #efeef6;
+}
+.stat-num { font-size: 40rpx; font-weight: 700; color: #2d3436; line-height: 1.2; }
+.stat-label { font-size: 24rpx; color: #9aa0a6; }
+
+/* ---------- 菜单列表（图标色块 + 标题 + 右侧值/角标 + 箭头） ---------- */
+.menu-card { padding: 8rpx 28rpx; }
+.menu-item {
+  display: flex; align-items: center; gap: 20rpx;
+  padding: 26rpx 0; border-bottom: 2rpx solid #f4f3fa;
+}
+.menu-item:last-child { border-bottom: none; }
+.mi-icon {
+  width: 76rpx; height: 76rpx; border-radius: 22rpx; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 36rpx;
+}
+.mi-purple { background: #f0eeff; }
+.mi-green { background: #e6f8f2; }
+.mi-blue { background: #e8f1ff; }
+.mi-orange { background: #fdf1e3; }
+.mi-gray { background: #f3f3f7; }
+.mi-title { font-size: 30rpx; color: #2d3436; font-weight: 600; flex: 1; }
+.mi-value { font-size: 26rpx; color: #9aa0a6; margin-right: 6rpx; }
+.mi-badge {
+  min-width: 32rpx; height: 32rpx; line-height: 32rpx; text-align: center;
+  border-radius: 16rpx; background: #ff7675; color: #fff;
+  font-size: 20rpx; padding: 0 8rpx; margin-right: 6rpx;
+}
+.mi-chev { color: #c9c9d4; font-size: 34rpx; }
+
+/* ---------- 分区标题（页面内小标题，如「我的社团」） ---------- */
+.sec-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 28rpx 32rpx 8rpx;
+}
+.sec-title { font-size: 32rpx; font-weight: 700; color: #2d3436; }
+.sec-more { font-size: 24rpx; color: #9aa0a6; }
 
 /* ---------- 空状态 ---------- */
 .empty { padding: 60rpx 40rpx; text-align: center; }

@@ -1,7 +1,14 @@
 <template>
   <view class="page page-tab" :class="{ 'tab-in': tabAnim }">
-    <!-- 筛选区（两行：模式单选 / 菜系·时段·距离多选横滑） -->
-    <view class="filters">
+    <!-- 顶部 Hero：品牌感头部 -->
+    <view class="hero">
+      <text class="hero-kicker">{{ locationDenied ? "定位未开启" : "正在你身边" }}</text>
+      <view class="hero-title">约饭广场</view>
+      <view class="hero-sub">找到同频的人，把一顿饭约成一次相遇</view>
+    </view>
+
+    <!-- 筛选区（两行：模式单选 / 菜系·时段·距离多选横滑），卡片压在 Hero 圆角上 -->
+    <view class="filters hero-overlap">
       <!-- 第一行：组队模式（单选） + 说明 + 搜索 -->
       <view class="frow">
         <scroll-view scroll-x class="fscroll" :show-scrollbar="false">
@@ -390,18 +397,22 @@ export default {
 <style scoped>
 .page { padding-bottom: 160rpx; }
 
-/* ---------- 筛选区（两行，压缩垂直高度） ---------- */
-.filters { background: #fff; padding: 14rpx 0 10rpx; margin-bottom: 8rpx; }
+/* ---------- 筛选区：白色圆角卡压在 Hero 上 ---------- */
+.filters {
+  background: #fff; padding: 20rpx 0 14rpx;
+  margin: 0 20rpx 8rpx; border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(45, 52, 54, 0.05);
+}
 .frow { display: flex; align-items: center; padding: 0 20rpx; margin-bottom: 12rpx; }
 .fscroll { flex: 1; white-space: nowrap; }
 .second { padding: 0 20rpx; }
 .fscroll ::-webkit-scrollbar,
 .fscroll::-webkit-scrollbar { display: none; width: 0; height: 0; background: transparent; }
 .chip {
-  display: inline-block; padding: 8rpx 24rpx; margin-right: 14rpx;
-  border-radius: 30rpx; background: #efeef6; color: #636e72; font-size: 25rpx;
+  display: inline-block; padding: 10rpx 28rpx; margin-right: 16rpx;
+  border-radius: 32rpx; background: #f3f3f7; color: #636e72; font-size: 25rpx;
 }
-.chip.active { background: #6c5ce7; color: #fff; }
+.chip.active { background: #6c5ce7; color: #fff; font-weight: 600; box-shadow: 0 4rpx 12rpx rgba(108, 92, 231, 0.25); }
 .vline {
   display: inline-block; width: 2rpx; height: 26rpx; background: #e6e6ef;
   margin: 0 16rpx 0 2rpx; vertical-align: middle;

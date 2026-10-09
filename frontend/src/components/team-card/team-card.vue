@@ -179,8 +179,8 @@ export default {
 <style scoped>
 /* 卡片规格与全局 .card 对齐（圆角/阴影统一） */
 .tc {
-  background: #fff; border-radius: 20rpx; padding: 24rpx;
-  margin: 20rpx; box-shadow: 0 6rpx 20rpx rgba(45, 52, 54, 0.06);
+  background: #fff; border-radius: 24rpx; padding: 28rpx;
+  margin: 20rpx; box-shadow: 0 8rpx 24rpx rgba(45, 52, 54, 0.05);
   transition: opacity 0.15s;
 }
 .tc-pressed { opacity: 0.94; }

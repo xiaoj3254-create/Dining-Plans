@@ -1,5 +1,12 @@
 <template>
   <view class="page page-tab">
+    <!-- 顶部 Hero -->
+    <view class="hero">
+      <text class="hero-kicker">我的饭局</text>
+      <view class="hero-title">我的组队</view>
+      <view class="hero-sub">招募、成团、聚餐动态，一站式掌握</view>
+    </view>
+
     <!-- 分组 Tab：招募中 / 已成团 / 已结束 -->
     <view class="tabs">
       <view
@@ -205,16 +212,16 @@ export default {
   box-shadow: 0 4rpx 12rpx rgba(45, 52, 54, 0.04);
 }
 .tab {
-  flex: 1; text-align: center; padding: 22rpx 0; font-size: 28rpx; color: #636e72;
+  flex: 1; text-align: center; padding: 24rpx 0; font-size: 30rpx; color: #9aa0a6;
   display: flex; align-items: center; justify-content: center;
   position: relative;
 }
-.tab.on { color: #6c5ce7; font-weight: 700; }
+.tab.on { color: #2d3436; font-weight: 700; }
 /* 选中下划线：独占一条，粗细适中，视觉更利落 */
 .tab.on::after {
   content: ""; position: absolute; left: 50%; bottom: 0;
   transform: translateX(-50%);
-  width: 56rpx; height: 6rpx; border-radius: 3rpx; background: #6c5ce7;
+  width: 64rpx; height: 8rpx; border-radius: 4rpx; background: #6c5ce7;
 }
 /* 角标移到文字右上角（上标形式），不再挤在同一行 */
 .tab-label { position: relative; display: inline-block; }

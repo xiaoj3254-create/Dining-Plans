@@ -129,7 +129,7 @@ export default {
 <style scoped>
 .page { padding-bottom: 180rpx; }
 
-.hero { position: relative; height: 340rpx; background: #efeef6; }
+.hero { position: relative; height: 360rpx; background: #efeef6; border-radius: 0 0 36rpx 36rpx; overflow: hidden; }
 .hero-img { width: 100%; height: 100%; }
 .hero-mask {
   position: absolute; left: 0; right: 0; bottom: 0; height: 200rpx;

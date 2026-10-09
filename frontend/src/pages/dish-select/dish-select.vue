@@ -163,10 +163,10 @@ export default {
 .cat-bar { white-space: nowrap; padding: 20rpx 20rpx 4rpx; }
 .cat-bar::-webkit-scrollbar { display: none; }
 .chip {
-  display: inline-block; padding: 8rpx 24rpx; margin-right: 14rpx;
-  border-radius: 28rpx; background: #efeef6; color: #636e72; font-size: 24rpx;
+  display: inline-block; padding: 10rpx 28rpx; margin-right: 16rpx;
+  border-radius: 32rpx; background: #f3f3f7; color: #636e72; font-size: 25rpx;
 }
-.chip.active { background: #6c5ce7; color: #fff; }
+.chip.active { background: #6c5ce7; color: #fff; font-weight: 600; box-shadow: 0 4rpx 12rpx rgba(108, 92, 231, 0.25); }
 
 /* 菜品网格：三列自适应 */
 .grid { display: flex; flex-wrap: wrap; padding: 16rpx 14rpx 0; }

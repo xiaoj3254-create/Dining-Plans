@@ -2,7 +2,7 @@
   <view class="page">
     <!-- ========== 区块：基本信息 ========== -->
     <view class="block">
-      <view class="block-head">基本信息</view>
+      <view class="block-head"><text class="bh-ico mi-purple">📝</text>基本信息</view>
       <view class="card">
         <!-- 队伍名 -->
         <view class="form-row">
@@ -102,7 +102,7 @@
 
     <!-- ========== 区块：组队模式 ========== -->
     <view class="block">
-      <view class="block-head">组队模式</view>
+      <view class="block-head"><text class="bh-ico mi-green">👥</text>组队模式</view>
       <view class="card">
         <radio-group @change="onModeChange" class="mode-row">
           <label class="mode-item" :class="{ on: form.mode === 'anonymous', locked: editMode }">
@@ -386,6 +386,11 @@ export default {
 .block-head {
   font-size: 32rpx; font-weight: 700; color: #2d3436;
   padding: 26rpx 24rpx 0;
+  display: flex; align-items: center; gap: 14rpx;
+}
+.bh-ico {
+  width: 48rpx; height: 48rpx; border-radius: 14rpx; font-size: 26rpx;
+  display: inline-flex; align-items: center; justify-content: center;
 }
 
 .form-row { display: flex; align-items: center; margin-bottom: 26rpx; flex-wrap: wrap; }
@@ -395,8 +400,8 @@ export default {
 .label { width: 150rpx; color: #636e72; flex-shrink: 0; }
 .req { color: #ff7675; }
 .input {
-  flex: 1; background: #efeef6; border-radius: 12rpx;
-  padding: 16rpx 20rpx; font-size: 28rpx;
+  flex: 1; background: #f3f3f7; border-radius: 16rpx;
+  padding: 16rpx 22rpx; font-size: 28rpx;
 }
 .input.bad, .pick-row.bad { background: #fff0f0; }
 .picker { color: #636e72; margin-right: 12rpx; min-width: 180rpx; }
@@ -411,8 +416,8 @@ export default {
 
 .pick-row {
   flex: 1; display: flex; align-items: center;
-  background: #efeef6; border-radius: 12rpx; padding: 12rpx 16rpx;
-  min-height: 72rpx; transition: background 0.15s;
+  background: #f3f3f7; border-radius: 16rpx; padding: 12rpx 18rpx;
+  min-height: 76rpx; transition: background 0.15s;
 }
 .pick-row.disabled { opacity: 0.5; }
 .pick-main { flex: 1; display: flex; align-items: center; min-width: 0; }

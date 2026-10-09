@@ -108,24 +108,24 @@ export default {
 .page { padding-bottom: 40rpx; }
 .filters { background: #fff; padding: 16rpx 0 16rpx; }
 .search-row { display: flex; align-items: center; gap: 14rpx; padding: 4rpx 20rpx 14rpx; }
-.s-input { flex: 1; background: #efeef6; border-radius: 32rpx; padding: 12rpx 24rpx; font-size: 26rpx; }
+.s-input { flex: 1; background: #f3f3f7; border-radius: 32rpx; padding: 12rpx 24rpx; font-size: 26rpx; }
 .s-btn { color: #6c5ce7; font-size: 26rpx; font-weight: 600; }
 .s-cancel { color: #b2b2b2; font-size: 26rpx; }
 .fscroll { white-space: nowrap; padding: 0 20rpx; }
 .fscroll::-webkit-scrollbar { display: none; }
 .chip {
-  display: inline-block; padding: 10rpx 26rpx; margin-right: 16rpx;
-  border-radius: 30rpx; background: #efeef6; color: #636e72; font-size: 26rpx;
+  display: inline-block; padding: 10rpx 28rpx; margin-right: 16rpx;
+  border-radius: 32rpx; background: #f3f3f7; color: #636e72; font-size: 26rpx;
 }
-.chip.active { background: #6c5ce7; color: #fff; }
+.chip.active { background: #6c5ce7; color: #fff; font-weight: 600; box-shadow: 0 4rpx 12rpx rgba(108, 92, 231, 0.25); }
 
 .rest-card {
-  display: flex; background: #fff; border-radius: 20rpx; padding: 22rpx;
-  margin: 20rpx 20rpx 0; box-shadow: 0 6rpx 20rpx rgba(45, 52, 54, 0.06);
+  display: flex; background: #fff; border-radius: 24rpx; padding: 22rpx;
+  margin: 20rpx 20rpx 0; box-shadow: 0 8rpx 24rpx rgba(45, 52, 54, 0.05);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .card-hover { transform: translateY(-6rpx); box-shadow: 0 14rpx 30rpx rgba(108, 92, 231, 0.16); }
-.rest-img { width: 150rpx; height: 150rpx; border-radius: 16rpx; flex-shrink: 0; background: #efeef6; }
+.rest-img { width: 150rpx; height: 150rpx; border-radius: 18rpx; flex-shrink: 0; background: #efeef6; }
 .rest-info { flex: 1; margin-left: 20rpx; min-width: 0; }
 .rest-top { display: flex; align-items: center; }
 .rest-name {

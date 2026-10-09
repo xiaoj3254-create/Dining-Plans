@@ -56,9 +56,13 @@
 
         <!-- 已生效：展示分摊明细 -->
         <template v-if="hasBill">
+          <!-- 账单概览：渐变金额卡 -->
           <view class="bill-status">
-            <text class="tag" :class="billClass(data.bill.status)">{{ billText(data.bill.status) }}</text>
-            <text v-if="data.bill.per_capita" class="per">人均 ¥{{ data.bill.per_capita }}</text>
+            <view class="bs-left">
+              <text class="bs-amount">¥{{ data.bill.per_capita || data.bill.total_amount }}</text>
+              <text class="bs-label">{{ data.bill.per_capita ? "人均消费" : "账单总额" }}</text>
+            </view>
+            <text class="st" :class="billClass(data.bill.status)">{{ billText(data.bill.status) }}</text>
           </view>
           <view class="pay-list">
             <view v-for="(p, i) in data.bill.payments" :key="i" class="pay-item">
@@ -299,12 +303,13 @@ export default {
 .c-state { color: #b2b2b2; font-size: 24rpx; }
 .c-state.done { color: #10b981; font-weight: 600; }   /* 已到场=绿 */
 .c-state.undone { color: #9aa0a6; }                    /* 未到场=灰 */
-/* 核销码放大，方便线下出示 */
-.my-code { margin-top: 20rpx; }
+/* 核销码：紫色渐变卡 + 大字，方便线下出示 */
+.my-code { margin-top: 24rpx; }
 .code-box {
-  background: #f0eeff; border-radius: 16rpx; padding: 24rpx; text-align: center;
+  background: linear-gradient(135deg, #f0eeff 0%, #e6e2ff 100%);
+  border-radius: 20rpx; padding: 28rpx; text-align: center;
 }
-.code { display: block; margin-top: 8rpx; color: #6c5ce7; font-weight: 700; font-size: 52rpx; letter-spacing: 6rpx; }
+.code { display: block; margin-top: 8rpx; color: #6c5ce7; font-weight: 700; font-size: 56rpx; letter-spacing: 8rpx; }
 .code-actions { display: flex; gap: 16rpx; justify-content: flex-end; margin-top: 16rpx; }
 .btn-sm { padding: 10rpx 30rpx; font-size: 26rpx; border-radius: 30rpx; display: inline-block; }
 .btn-block { width: 100%; box-sizing: border-box; margin-top: 24rpx; }
@@ -317,13 +322,22 @@ export default {
 .sheet { width: 620rpx; background: #fff; border-radius: 24rpx; padding: 36rpx; box-sizing: border-box; }
 .sheet-title { font-size: 32rpx; font-weight: 700; margin-bottom: 20rpx; }
 .rule { font-size: 25rpx; color: #636e72; line-height: 1.75; margin-bottom: 10rpx; }
-.bill-status { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16rpx; }
-.per { color: #6c5ce7; font-size: 34rpx; font-weight: 700; }
-.pay-item { display: flex; justify-content: space-between; align-items: center; padding: 14rpx 0; }
+/* 账单概览：渐变金额卡，金额一眼可扫 */
+.bill-status {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20rpx; padding: 30rpx 28rpx; border-radius: 20rpx;
+  background: linear-gradient(135deg, #8b7cf0 0%, #4a3fd8 100%);
+  box-shadow: 0 8rpx 20rpx rgba(108, 92, 231, 0.25);
+}
+.bs-left { display: flex; flex-direction: column; gap: 6rpx; }
+.bs-amount { color: #fff; font-size: 48rpx; font-weight: 700; line-height: 1.2; }
+.bs-label { color: rgba(255, 255, 255, 0.78); font-size: 22rpx; }
+.pay-item { display: flex; justify-content: space-between; align-items: center; padding: 16rpx 0; border-bottom: 2rpx solid #f4f3fa; }
+.pay-item:last-child { border-bottom: none; }
 .right { display: flex; align-items: center; gap: 12rpx; }
 .amount { font-weight: 600; }
 .form-row { display: flex; align-items: center; gap: 14rpx; margin-top: 20rpx; }
-.input { flex: 1; background: #efeef6; border-radius: 12rpx; padding: 16rpx 20rpx; font-size: 28rpx; }
+.input { flex: 1; background: #f3f3f7; border-radius: 16rpx; padding: 16rpx 20rpx; font-size: 28rpx; }
 .btn { margin-top: 24rpx; }
 .center { text-align: center; padding: 20rpx; }
 .edit { color: #6c5ce7; }
